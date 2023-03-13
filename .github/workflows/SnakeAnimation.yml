@@ -18,7 +18,7 @@ jobs:
       # Etapa para gerar a animação de cobra
       - name: Generate Snake Animation
         # Usa o repositório "Platane/snk" para gerar a animação
-        uses: Platane/snk@v0.5.3
+        uses: Platane/snk@master
         # Define um identificador para esta etapa
         id: snake-gif
         # Define as opções para a animação de cobra
