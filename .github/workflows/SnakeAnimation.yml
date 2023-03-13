@@ -1,35 +1,26 @@
-# Este código é um arquivo YAML para uma ação do GitHub que cria uma animação de cobra (snake animation) com base nas contribuições do usuário em seu perfil do GitHub e a publica no GitHub Pages. Vamos comentar cada parte do código:
-
-# Nome da ação no GitHub. Pode ser qualquer nome que o usuário quiser.
 name: SnakeAnimation
 
-# Definição de quando a ação será executada. Neste caso, ela será executada automaticamente a cada 12 horas e também pode ser executada manualmente pelo usuário.
 on:
   schedule:
     - cron: "0 */12 * * *"
   workflow_dispatch:
-  
-# As tarefas que serão executadas pela ação são definidas dentro de "jobs". A ação tem apenas um trabalho, chamado "build". O trabalho será executado em um ambiente ubuntu-latest.
+
 jobs:
   build:
     name: Update user data
     runs-on: ubuntu-latest
     steps:
-
-# A primeira tarefa é gerar a animação da cobra. A ação usa a ação de terceiros Platane/snk para gerar a animação. O nome da tarefa é "Generate Snake Animation". O nome da ação Platane/snk é especificado no campo "uses". O identificador "id" é atribuído a essa etapa. É possível acessar os dados de saída dessa tarefa por meio desse identificador. As informações do usuário são inseridas no campo "with". Neste caso, a ação usará as informações do usuário com nome de usuário "pecanela". O arquivo de saída da animação é especificado em "output_file".
       - name: Generate Snake Animation
-      uses: Platane/snk@v0.4.0
-      id: snake-gif
-      with:
-        github_user_name: pecanela
-        output_file: dist/github-contribution-grid-snake.svg
-        
-# A segunda tarefa é publicar a animação no GitHub Pages. A ação usa a ação de terceiros crazy-max/ghaction-github-pages para publicar a animação. O nome da tarefa é "Deploy to GitHub Pages". O nome da ação crazy-max/ghaction-github-pages é especificado no campo "uses". As informações da publicação são inseridas no campo "with". O nome do branch de destino é especificado em "target_branch". O diretório de construção é especificado em "build_dir". O diretório de publicação é especificado em "publish_dir". As credenciais do GitHub são armazenadas em um segredo e são acessadas por meio da variável de ambiente "GITHUB_TOKEN".
+        uses: Platane/snk@v0.4.0
+        id: snake-gif
+        with:
+          github_user_name: pecanela
+          output_file: dist/github-contribution-grid-snake.svg
       - name: Deploy to GitHub Pages
-      uses: crazy-max/ghaction-github-pages@v3.7.2
-      with:
-        target_branch: output
-        build_dir: dist
-        publish_dir: dist
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        uses: crazy-max/ghaction-github-pages@v3.7.2
+        with:
+          target_branch: output
+          build_dir: dist
+          publish_dir: dist
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
