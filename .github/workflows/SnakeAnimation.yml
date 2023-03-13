@@ -1,3 +1,6 @@
+#O código a seguir é um fluxo de trabalho do GitHub Actions que atualiza a grade de contribuições do usuário no GitHub com uma animação de cobra (snake) gerada a partir de um repositório específico. Este código foi atualizado e comentado para uma melhor compreensão:
+
+
 # Define o nome do fluxo de trabalho
 name: SnakeAnimation
 
@@ -42,3 +45,8 @@ jobs:
         env:
           # Define o token de autenticação do GitHub para publicar a imagem
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          
+# O fluxo de trabalho "SnakeAnimation" é acionado duas vezes por dia e também pode ser executado manualmente. Ele consiste em dois passos principais:
+
+# 1 - A primeira etapa usa o repositório "Platane/snk" para gerar a animação de cobra com base no nome de usuário do GitHub definido em "github_user_name" e salva o arquivo SVG resultante em "svg_out_path".
+# 2 - A segunda etapa usa o repositório "crazy-max/ghaction-github-pages" para publicar a imagem SVG gerada na página do GitHub. O token de autenticação do GitHub é fornecido em "GITHUB_TOKEN", que é uma variável secreta que deve ser configurada nas configurações do repositório.
