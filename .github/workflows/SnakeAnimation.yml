@@ -1,26 +1,44 @@
+# Define o nome do fluxo de trabalho
 name: SnakeAnimation
 
+# Define o gatilho do fluxo de trabalho, que é agendado para rodar duas vezes por dia
 on:
   schedule:
-    - cron: "0 */12 * * *"
+    - cron: "* */12 * * *"
   workflow_dispatch:
 
+# Define as etapas para o fluxo de trabalho
 jobs:
   build:
-    name: Update user data
+    # Define o nome do job
+    name: Update Contribution Graph
+    # Define o sistema operacional em que as etapas do job serão executadas
     runs-on: ubuntu-latest
     steps:
+      # Etapa para gerar a animação de cobra
       - name: Generate Snake Animation
-        uses: Platane/snk@master
+        # Usa o repositório "Platane/snk" para gerar a animação
+        uses: Platane/snk@v0.5.3
+        # Define um identificador para esta etapa
         id: snake-gif
+        # Define as opções para a animação de cobra
         with:
+          # Define o nome de usuário do GitHub
           github_user_name: pecanela
-          output_file: dist/github-contribution-grid-snake.svg
-      - name: Deploy to GitHub Pages
+          # Define o caminho de saída do arquivo SVG gerado
+          svg_out_path: dist/github-contribution-grid-snake.svg
+
+      # Etapa para publicar a imagem gerada na página do GitHub
+      - name: Publish Snake Animation
+        # Usa o repositório "crazy-max/ghaction-github-pages" para publicar a imagem
         uses: crazy-max/ghaction-github-pages@v3.1.0
+        # Define as opções para a publicação
         with:
+          # Define o nome do branch de destino para publicação
           target_branch: output
+          # Define o diretório onde o arquivo de saída está localizado
           build_dir: dist
-          publish_dir: dist
+        # Define as variáveis de ambiente
         env:
+          # Define o token de autenticação do GitHub para publicar a imagem
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
