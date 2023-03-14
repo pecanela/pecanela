@@ -1,52 +1,77 @@
-#O código a seguir é um fluxo de trabalho do GitHub Actions que atualiza a grade de contribuições do usuário no GitHub com uma animação de cobra (snake) gerada a partir de um repositório específico. Este código foi atualizado e comentado para uma melhor compreensão:
+# O código a seguir é um fluxo de trabalho do GitHub Actions que atualiza a grade de contribuições do usuário no GitHub com uma animação de cobra (snake) gerada a partir de um repositório específico. Este código foi atualizado e comentado para uma melhor compreensão:
+#The following code is a GitHub Actions workflow that updates the user's contribution graph on GitHub with a snake animation generated from a specific repository. This code has been updated and commented for better understanding:
 
 
 # Define o nome do fluxo de trabalho
+# Define the name of the workflow
 name: SnakeAnimation
 
 # Define o gatilho do fluxo de trabalho, que é agendado para rodar duas vezes por dia
+# Define the trigger for the workflow, which is scheduled to run twice a day
 on:
   schedule:
     - cron: "* */12 * * *"
   workflow_dispatch:
 
 # Define as etapas para o fluxo de trabalho
+# Define the steps for the workflow
 jobs:
   build:
     # Define o nome do job
+    # Define the name of the job
     name: Update Contribution Graph
     # Define o sistema operacional em que as etapas do job serão executadas
+    # Define the operating system on which the job steps will be executed
     runs-on: ubuntu-latest
     steps:
       # Etapa para gerar a animação de cobra
+      # Step to generate the snake animation
       - name: Generate Snake Animation
         # Usa o repositório "Platane/snk" para gerar a animação
+        # Uses the "Platane/snk" repository to generate the animation
         uses: Platane/snk@master
         # Define um identificador para esta etapa
+        # Define an identifier for this step
         id: snake-gif
         # Define as opções para a animação de cobra
+        # Define the options for the snake animation
         with:
           # Define o nome de usuário do GitHub
+          # Define the GitHub username
           github_user_name: pecanela
           # Define o caminho de saída do arquivo SVG gerado
+          # Define the output path for the generated SVG file
           svg_out_path: dist/github-contribution-grid-snake.svg
 
       # Etapa para publicar a imagem gerada na página do GitHub
+      # Step to publish the generated image to the GitHub page
       - name: Publish Snake Animation
         # Usa o repositório "crazy-max/ghaction-github-pages" para publicar a imagem
+        # Uses the "crazy-max/ghaction-github-pages" repository to publish the image
         uses: crazy-max/ghaction-github-pages@v3.1.0
         # Define as opções para a publicação
+        # Define the options for the publication
         with:
           # Define o nome do branch de destino para publicação
+          # Define the name of the target branch for publication
           target_branch: output
           # Define o diretório onde o arquivo de saída está localizado
+          # Define the directory where the output file is located
           build_dir: dist
         # Define as variáveis de ambiente
+        # Define the environment variables
         env:
           # Define o token de autenticação do GitHub para publicar a imagem
+          # Define the GitHub authentication token to publish the image
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           
 # O fluxo de trabalho "SnakeAnimation" é acionado duas vezes por dia e também pode ser executado manualmente. Ele consiste em dois passos principais:
+# The "SnakeAnimation" workflow is triggered twice a day and can also be run manually. It consists of two main steps:
+
 
 # 1 - A primeira etapa usa o repositório "Platane/snk" para gerar a animação de cobra com base no nome de usuário do GitHub definido em "github_user_name" e salva o arquivo SVG resultante em "svg_out_path".
+# 1 - The first step uses the "Platane/snk" repository to generate the snake animation based on the GitHub username defined in "github_user_name" and saves the resulting SVG file to "svg_out_path".
+
+
 # 2 - A segunda etapa usa o repositório "crazy-max/ghaction-github-pages" para publicar a imagem SVG gerada na página do GitHub. O token de autenticação do GitHub é fornecido em "GITHUB_TOKEN", que é uma variável secreta que deve ser configurada nas configurações do repositório.
+# 2 - The second step uses the "crazy-max/ghaction-github-pages" repository to publish the generated SVG image on the GitHub page. The GitHub authentication token is provided in "GITHUB_TOKEN", which is a secret variable that must be configured in the repository settings.
