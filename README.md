@@ -1,7 +1,7 @@
 ### Hello! I'm Pedro Canelada ![party_parrot(2)](https://user-images.githubusercontent.com/126736227/224015660-e6a25892-0b1e-4d56-a88d-d2cc182780ea.gif)
 
 
-- 👨‍💼 I’m Electrical Engineer currently working at AWS
+- 👨‍💼 I’m Electrical Engineer currently working at Huawei
 - 👨‍💻 Learning about programming and system development
 - 🚀 I’m looking to improve myself and contribute with the DEV community
 
